@@ -1,24 +1,30 @@
 import { Trash } from 'phosphor-react';
-import { FormEvent, MouseEventHandler } from 'react';
+import { Dispatch, FormEvent, MouseEventHandler, SetStateAction } from 'react';
+import { ITask } from '../TaskList/Index';
 import styles from './Task.module.css';
 
-interface Itask {
+interface ITaskProps {
+  id: number
   description: string
   isDone: boolean
   isDeleted: boolean
+  setTasks:  Dispatch<SetStateAction<ITask[]>>;
 }
 
-export function Task({ description, isDone, isDeleted }: Itask) {
+export function Task({ id, description, isDone, isDeleted, setTasks }: ITaskProps) {
 
   function handleDoneTask(event: any) {
-    event.preventDefault()
-
-    
     console.log('Task done')
+    setTasks(
+      state =>  [
+        ...state,
+        state.find( task => task.id === id)!
+      ]
+    )
+    
   }
 
  function handleDeleteTask(event: any){
-  event.preventDefault()
   console.log('Task deleted')
  }
 

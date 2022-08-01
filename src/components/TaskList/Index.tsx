@@ -1,10 +1,16 @@
 import styles from './TaskList.module.css';
 import { Task } from '../Task/Index';
 import { TaskListInfo } from '../TaskListInfo/Index';
-
+import { useState } from 'react';
+export interface ITask{
+  id: number
+  description: string
+  isDone: boolean
+  isDeleted: boolean
+}
 export function TaskList() {
 
-  const tasks = [
+  const tasksData = [
     {
       id: 1,
       description: 'Estudar ReactJS na Rocketseat.',
@@ -24,8 +30,14 @@ export function TaskList() {
       isDeleted: false,
     }
   ]
-  const qtyTaskCreated = tasks.length
-  const qtyTaskDone = tasks.filter( task => task.isDone ).length
+  const [tasks, setTasks] = useState<ITask[]>(tasksData)
+
+  console.log(tasks)
+
+  const qtyTaskCreated = tasks.length || 0
+  const qtyTaskDone = tasks.filter( (task:ITask) => task.isDone ).length || 0
+
+ 
 
   return (
     <div className={styles.taskList}>
@@ -36,9 +48,11 @@ export function TaskList() {
           ({id, description, isDone, isDeleted}) => 
             <Task 
               key={id} 
+              id={id}
               description={description}
               isDone={isDone}
               isDeleted={isDeleted}
+              setTasks={setTasks}
             />
         )}  
     </div>
