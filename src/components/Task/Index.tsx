@@ -13,17 +13,21 @@ interface ITaskProps {
 
 export function Task({ id, description, isDone, setTasks, tasks }: ITaskProps) {
 
-  function handleDoneTask(event: any, taskId: number) {
-    console.log('Task done')
+  function handleDoneTask(event: any) {
+    console.log('Task done', id)
     setTasks(
-      stateArray => [
-        ...stateArray.filter(state => state.id !== id),
-        {
-          id,
-          description,
-          isDone
+       taskArray => taskArray.map(
+        task => {
+          if(task.id === id){
+            console.log(task)
+            return {
+              ...task,
+              isDone: !task.isDone
+            }
+          }
+          return task
         }
-      ]
+       )
       )
   }
 
@@ -37,7 +41,7 @@ export function Task({ id, description, isDone, setTasks, tasks }: ITaskProps) {
 
   return (
     <div className={styles.task}>
-      <label className={styles.circle} onClick={(e) => handleDoneTask(e, id)}>
+      <label className={styles.circle} onClick={handleDoneTask}>
         <input type='checkbox'/>
         <span className={styles.checkmark}></span>
       </label>
