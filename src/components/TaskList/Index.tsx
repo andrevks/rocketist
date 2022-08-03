@@ -6,7 +6,6 @@ export interface ITask{
   id: number
   description: string
   isDone: boolean
-  isDeleted: boolean
 }
 export function TaskList() {
 
@@ -15,24 +14,19 @@ export function TaskList() {
       id: 1,
       description: 'Estudar ReactJS na Rocketseat.',
       isDone: false,
-      isDeleted: false,
     },
     {
       id: 2,
       description: 'Fazer um Hackintosh brabo. Depois configurar o Xcode e o conectar com a Apple Store.',
       isDone: false,
-      isDeleted: false,
     },
     {
       id: 3,
       description: 'Construir um foguete para a Lua.',
-      isDone: true,
-      isDeleted: false,
+      isDone: false,
     }
   ]
   const [tasks, setTasks] = useState<ITask[]>(tasksData)
-
-  console.log(tasks)
 
   const qtyTaskCreated = tasks.length || 0
   const qtyTaskDone = tasks.filter( (task:ITask) => task.isDone ).length || 0
@@ -45,14 +39,14 @@ export function TaskList() {
       <TaskListInfo qtyTaskCreated={qtyTaskCreated} qtyTaskDone={qtyTaskDone}/>
 
       {tasks.map( 
-          ({id, description, isDone, isDeleted}) => 
+          ({id, description, isDone}) => 
             <Task 
               key={id} 
               id={id}
               description={description}
               isDone={isDone}
-              isDeleted={isDeleted}
               setTasks={setTasks}
+              tasks={tasks}
             />
         )}  
     </div>

@@ -7,30 +7,28 @@ interface ITaskProps {
   id: number
   description: string
   isDone: boolean
-  isDeleted: boolean
-  setTasks:  Dispatch<SetStateAction<ITask[]>>;
+  setTasks:  Dispatch<SetStateAction<ITask[]>>
+  tasks: Array<any>
 }
 
-export function Task({ id, description, isDone, isDeleted, setTasks }: ITaskProps) {
+export function Task({ id, description, isDone, setTasks, tasks }: ITaskProps) {
 
-  function handleDoneTask(event: any) {
+  function handleDoneTask(event: any, taskId: number) {
     console.log('Task done')
-    setTasks(
-      state =>  [
-        ...state,
-        state.find( task => task.id === id)!
-      ]
-    )
-    
+
   }
 
  function handleDeleteTask(event: any){
   console.log('Task deleted')
+  setTasks(
+    stateArray =>  stateArray.filter( state => state.id !== id)
+  )
+  
  }
 
   return (
     <div className={styles.task}>
-      <label className={styles.circle} onClick={handleDoneTask}>
+      <label className={styles.circle} onClick={(e) => handleDoneTask(e, id)}>
         <input type='checkbox'/>
         <span className={styles.checkmark}></span>
       </label>
