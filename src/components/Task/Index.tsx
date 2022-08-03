@@ -15,7 +15,16 @@ export function Task({ id, description, isDone, setTasks, tasks }: ITaskProps) {
 
   function handleDoneTask(event: any, taskId: number) {
     console.log('Task done')
-
+    setTasks(
+      stateArray => [
+        ...stateArray.filter(state => state.id !== id),
+        {
+          id,
+          description,
+          isDone
+        }
+      ]
+      )
   }
 
  function handleDeleteTask(event: any){
