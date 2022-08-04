@@ -4,7 +4,7 @@ import { ITask } from '../TaskList/Index';
 import styles from './Task.module.css';
 
 interface ITaskProps {
-  id: number
+  id: string
   description: string
   isDone: boolean
   setTasks:  Dispatch<SetStateAction<ITask[]>>
@@ -16,27 +16,26 @@ export function Task({ id, description, isDone, setTasks, tasks }: ITaskProps) {
   function handleDoneTask(event: any) {
     console.log('Task done', id)
     setTasks(
-       taskArray => taskArray.map(
-        task => {
-          if(task.id === id){
-            console.log(task)
-            return {
-              ...task,
-              isDone: !task.isDone
+        stateArray => stateArray.map(
+          state => {
+            if(state.id === id){
+              return {
+                id: state.id,
+                description: state.description,
+                isDone: true
+              }
             }
+            return state
           }
-          return task
-        }
+        )
        )
-      )
+      
   }
 
  function handleDeleteTask(event: any){
-  console.log('Task deleted')
   setTasks(
     stateArray =>  stateArray.filter( state => state.id !== id)
-  )
-  
+  ) 
  }
 
   return (

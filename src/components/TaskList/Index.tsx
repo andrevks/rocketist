@@ -1,32 +1,20 @@
 import styles from './TaskList.module.css';
 import { Task } from '../Task/Index';
 import { TaskListInfo } from '../TaskListInfo/Index';
-import { useState } from 'react';
+import { useState, SetStateAction, Dispatch } from 'react';
 export interface ITask{
-  id: number
+  id: string
   description: string
   isDone: boolean
 }
-export function TaskList() {
 
-  const tasksData = [
-    {
-      id: 1,
-      description: 'Estudar ReactJS na Rocketseat.',
-      isDone: false,
-    },
-    {
-      id: 2,
-      description: 'Fazer um Hackintosh brabo. Depois configurar o Xcode e o conectar com a Apple Store.',
-      isDone: false,
-    },
-    {
-      id: 3,
-      description: 'Construir um foguete para a Lua.',
-      isDone: false,
-    }
-  ]
-  const [tasks, setTasks] = useState<ITask[]>(tasksData)
+export interface ITaskListProps{
+  setTasks: Dispatch<SetStateAction<ITask[]>>
+  tasks: ITask[]
+}
+export function TaskList({ tasks, setTasks }: ITaskListProps) {
+
+  
 
   const qtyTaskCreated = tasks.length || 0
   const qtyTaskDone = tasks.filter( (task:ITask) => task.isDone ).length || 0
