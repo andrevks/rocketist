@@ -22,7 +22,7 @@ function App() {
       id: uuidv4(),
       description: 'Construir um foguete para a Lua.',
       isDone: false,
-    }
+    },
   ]
   const [tasks, setTasks] = useState<ITask[]>(tasksData)
 

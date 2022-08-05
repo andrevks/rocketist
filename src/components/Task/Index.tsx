@@ -8,28 +8,29 @@ interface ITaskProps {
   description: string
   isDone: boolean
   setTasks:  Dispatch<SetStateAction<ITask[]>>
-  tasks: Array<any>
+  tasks: ITask[]
 }
 
 export function Task({ id, description, isDone, setTasks, tasks }: ITaskProps) {
 
+  console.log('Task ---- rendered...')
+
   function handleDoneTask(event: any) {
-    console.log('Task done', id)
-    setTasks(
-        stateArray => stateArray.map(
-          state => {
-            if(state.id === id){
-              return {
-                id: state.id,
-                description: state.description,
-                isDone: true
-              }
-            }
-            return state
+    //mark task as isdone equals to true 
+    const taskIndex = tasks.find( (task) => task.id === id)
+    if(taskIndex) {
+      const newTaskArray = tasks.map( task => {
+        if(taskIndex.id === task.id){
+          return {
+            ...task,
+            isDone: !isDone
           }
-        )
-       )
-      
+        }
+        return task
+
+      })
+      setTasks(newTaskArray)
+    }
   }
 
  function handleDeleteTask(event: any){
@@ -40,8 +41,8 @@ export function Task({ id, description, isDone, setTasks, tasks }: ITaskProps) {
 
   return (
     <div className={styles.task}>
-      <label className={styles.circle} onClick={handleDoneTask}>
-        <input type='checkbox'/>
+      <label className={styles.circle} >
+        <input type='checkbox' onClick={handleDoneTask}/>
         <span className={styles.checkmark}></span>
       </label>
       <p className={isDone ? styles.descriptionTaskDone: styles.description}>
