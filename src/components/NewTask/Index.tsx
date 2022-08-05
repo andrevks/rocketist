@@ -1,7 +1,7 @@
 import styles from './NewTask.module.css';
 import { PlusCircle } from 'phosphor-react';
 import { ITask } from '../TaskList/Index';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { ChangeEventHandler, Dispatch, SetStateAction, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 interface INewTaskProps{
@@ -10,31 +10,31 @@ interface INewTaskProps{
 export function NewTask({ setTasks }: INewTaskProps) {
   const [newTask, setNewTask] = useState<ITask>()
 
-  function handleChangeInput(e:any){
+  function handleChangeInput(e: React.ChangeEvent<HTMLInputElement> ): void{
     const taskDescription = e.target.value
-    setNewTask({
-      id: uuidv4(),
-      description: taskDescription,
-      isDone: false
-    })
-
-    console.log(taskDescription)
-   
+    if(taskDescription){
+      setNewTask({
+        id: uuidv4(),
+        description: taskDescription,
+        isDone: false
+      })
+    }
   }
   function handleOnClickChange(e:any){
-     setTasks( stateArray =>([
-      ...stateArray,
-      newTask!
-    ]) )
+    if(newTask){
+      setTasks( stateArray =>([
+        ...stateArray,
+        newTask!
+      ]) )
+    }
   }
   return (
     <div className={styles.newTask}>
       <input 
         onChange={handleChangeInput}
-        onClick={handleOnClickChange}
         placeholder="Adicione uma nova tarefa" 
       />
-      <button>Criar <PlusCircle size={18} weight={'bold'} /></button>
+      <button onClick={handleOnClickChange}>Criar <PlusCircle size={18} weight={'bold'} /></button>
     </div>
   )
 }

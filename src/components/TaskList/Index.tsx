@@ -13,8 +13,6 @@ export interface ITaskListProps{
   tasks: ITask[]
 }
 export function TaskList({ tasks, setTasks }: ITaskListProps) {
- 
-  console.log('TaskList ------ rendered...')
   const qtyTaskCreated = tasks.length || 0
   const qtyTaskDone = tasks.filter( (task:ITask) => task.isDone ).length || 0
 

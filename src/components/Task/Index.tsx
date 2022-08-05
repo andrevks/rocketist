@@ -13,8 +13,6 @@ interface ITaskProps {
 
 export function Task({ id, description, isDone, setTasks, tasks }: ITaskProps) {
 
-  console.log('Task ---- rendered...')
-
   function handleDoneTask(event: any) {
     //mark task as isdone equals to true 
     const taskIndex = tasks.find( (task) => task.id === id)
