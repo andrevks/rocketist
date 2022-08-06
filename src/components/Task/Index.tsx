@@ -1,5 +1,5 @@
 import { Trash } from 'phosphor-react';
-import { Dispatch, FormEvent, MouseEventHandler, SetStateAction } from 'react';
+import { Dispatch, MouseEvent, SetStateAction } from 'react';
 import { ITask } from '../TaskList/Index';
 import styles from './Task.module.css';
 
@@ -13,8 +13,7 @@ interface ITaskProps {
 
 export function Task({ id, description, isDone, setTasks, tasks }: ITaskProps) {
 
-  function handleDoneTask(event: any) {
-    //mark task as isdone equals to true 
+  function handleDoneTask(e: MouseEvent<HTMLInputElement>) { 
     const taskIndex = tasks.find( (task) => task.id === id)
     if(taskIndex) {
       const newTaskArray = tasks.map( task => {
@@ -31,7 +30,7 @@ export function Task({ id, description, isDone, setTasks, tasks }: ITaskProps) {
     }
   }
 
- function handleDeleteTask(event: any){
+ function handleDeleteTask(e: MouseEvent<HTMLDivElement>){
   setTasks(
     stateArray =>  stateArray.filter( state => state.id !== id)
   ) 
