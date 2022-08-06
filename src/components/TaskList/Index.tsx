@@ -2,6 +2,7 @@ import styles from './TaskList.module.css';
 import { Task } from '../Task/Index';
 import { TaskListInfo } from '../TaskListInfo/Index';
 import { useState, SetStateAction, Dispatch } from 'react';
+import clipboard from '../../assets/clipboard.svg';
 export interface ITask{
   id: string
   description: string
@@ -17,21 +18,39 @@ export function TaskList({ tasks, setTasks }: ITaskListProps) {
   const qtyTaskDone = tasks.filter( (task:ITask) => task.isDone ).length || 0
 
   return (
-    <div className={styles.taskList}>
-
+    <div className={styles.taskListContainer}>
       <TaskListInfo qtyTaskCreated={qtyTaskCreated} qtyTaskDone={qtyTaskDone}/>
-
-      {tasks.map( 
-          ({id, description, isDone}) => 
-            <Task 
-              key={id} 
-              id={id}
-              description={description}
-              isDone={isDone}
-              setTasks={setTasks}
-              tasks={tasks}
-            />
-        )}  
-    </div>
+      
+      {qtyTaskCreated > 0 ? (
+          <div className={styles.taskList}>
+              {
+                tasks.map( 
+                  ({id, description, isDone}) => 
+                    <Task 
+                      key={id} 
+                      id={id}
+                      description={description}
+                      isDone={isDone}
+                      setTasks={setTasks}
+                    />
+                )
+              }
+          </div>       
+        ):
+        (
+          <div className={styles.emptyTaskList}>
+            <img src={clipboard} alt='Clipboard Icon' />
+            <div>
+              <p className={styles.boldDescription}>
+                Você ainda não tem tarefas cadastradas   
+              </p>
+              <p>
+                Crie tarefas e organize seus itens a fazer
+              </p>
+            </div>
+          </div>
+        )
+      }  
+   </div>
   )
 }

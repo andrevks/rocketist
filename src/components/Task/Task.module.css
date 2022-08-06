@@ -10,11 +10,20 @@
   padding: 1rem; 
   background: var(--gray-500);
   border-radius: 8px;
-  border: 1px solid var(--gray-400);
+  
   /* border:none; */
 
   line-height: 1.4;
 }
+
+.taskDone{
+  border: none;
+}
+
+.taskNotDone {
+  border: 1px solid var(--gray-400);
+}
+
 
 .description {
   flex-grow: 1;

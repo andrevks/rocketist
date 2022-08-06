@@ -8,50 +8,53 @@ interface INewTaskProps{
   setTasks: Dispatch<SetStateAction<ITask[]>>
 }
 export function NewTask({ setTasks }: INewTaskProps) {
-  const [newTask, setNewTask] = useState<string>()
+  const [newTaskDescription, setNewTaskDescription] = useState<string>()
 
-  function handleChangeInput(e: ChangeEvent<HTMLInputElement> ): void{
+
+  function setOnTasks(taskDescription: string | undefined ){
+    if(taskDescription){
+      setTasks( stateArray =>  
+        {
+          if(stateArray.length < 10) {
+              return [
+                ...stateArray,
+                {
+                  id: uuidv4(),
+                  description: taskDescription,
+                  isDone: false
+                }
+             ]
+          }
+          return stateArray
+        })
+      setNewTaskDescription("")
+    }
+  }
+
+  function handleChangeInput(e: ChangeEvent<HTMLInputElement>): void {
     const taskDescription = e.target.value
-    if(taskDescription) setNewTask(taskDescription);
+    console.log(taskDescription)
+    setNewTaskDescription(taskDescription)
   }
   
-  function handleOnClickChange(e: MouseEvent<HTMLButtonElement>){
-    if(newTask){
-      setTasks( stateArray =>([
-        ...stateArray,
-        {
-          id: uuidv4(),
-          description: newTask,
-          isDone: false
-        }
-      ]) )
-      setNewTask(" ")
-    }
+  function handleOnClickChange(e: MouseEvent<HTMLButtonElement>): void {
+    setOnTasks(newTaskDescription)
   }
 
-  function handleKeyDown(e: KeyboardEvent<HTMLInputElement>){
+  function handleKeyDown(e: KeyboardEvent<HTMLInputElement>): void {
     if(e.key === 'Enter'){
-      if(newTask){
-        setTasks( stateArray =>([
-          ...stateArray,
-          {
-            id: uuidv4(),
-            description: newTask,
-            isDone: false
-          }
-        ]))
-        setNewTask(" ")
-      }
+      setOnTasks(newTaskDescription)
     }
   }
-
+ 
   return (
     <div className={styles.newTask}>
       <input 
         onChange={handleChangeInput}
         onKeyDown={handleKeyDown}
-        value={newTask || ""}
+        value={newTaskDescription ? newTaskDescription : ""}
         placeholder="Adicione uma nova tarefa" 
+        maxLength={250}
       />
       <button onClick={handleOnClickChange}>Criar <PlusCircle size={18} weight={'bold'} /></button>
     </div>

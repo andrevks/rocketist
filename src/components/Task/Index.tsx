@@ -8,37 +8,31 @@ interface ITaskProps {
   description: string
   isDone: boolean
   setTasks:  Dispatch<SetStateAction<ITask[]>>
-  tasks: ITask[]
 }
 
-export function Task({ id, description, isDone, setTasks, tasks }: ITaskProps) {
+export function Task({ id, description, isDone, setTasks }: ITaskProps) {
 
-  function handleDoneTask(e: MouseEvent<HTMLInputElement>) { 
-    const taskIndex = tasks.find( (task) => task.id === id)
-    if(taskIndex) {
-      const newTaskArray = tasks.map( task => {
-        if(taskIndex.id === task.id){
-          return {
-            ...task,
-            isDone: !isDone
-          }
-        }
-        return task
-
-      })
-      setTasks(newTaskArray)
-    }
+  function handleDoneTask(e: MouseEvent<HTMLInputElement>) {
+    setTasks(
+      tasksArray => ([
+        ...tasksArray.map((task) => ({
+          id: task.id,
+          description: task.description,
+          isDone: (task.id === id)? !task.isDone : task.isDone
+        })) 
+      ]) 
+    );
   }
 
  function handleDeleteTask(e: MouseEvent<HTMLDivElement>){
   setTasks(
-    stateArray =>  stateArray.filter( state => state.id !== id)
-  ) 
+    tasksArray =>  tasksArray.filter( task => task.id !== id)
+  )
  }
 
   return (
-    <div className={styles.task}>
-      <label className={styles.circle} >
+    <div className={`${styles.task} ${isDone? styles.taskDone : styles.taskNotDone}`}>
+      <label className={styles.circle}>
         <input type='checkbox' onClick={handleDoneTask}/>
         <span className={styles.checkmark}></span>
       </label>
@@ -46,8 +40,8 @@ export function Task({ id, description, isDone, setTasks, tasks }: ITaskProps) {
         { description }
       </p>
       <div className={styles.trash} onClick={handleDeleteTask}>
-        <Trash size={18} weight={'bold'}  /> 
-      </div> 
+        <Trash size={18} weight={'bold'}  />
+      </div>
     </div>
   )
 }

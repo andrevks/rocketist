@@ -14,7 +14,7 @@ export function TaskListInfo({ qtyTaskCreated, qtyTaskDone }: ITaskInfoProps){
 
       <strong className={styles.taskDoneCount}>
         Concluídas
-        <span>{qtyTaskDone} de {qtyTaskCreated}</span>
+        <span>{qtyTaskDone}  {qtyTaskCreated ? `de ${qtyTaskCreated}`: ``}</span>
       </strong>
     </div>
   )
