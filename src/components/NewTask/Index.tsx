@@ -1,8 +1,8 @@
 import styles from './NewTask.module.css';
 import { PlusCircle } from 'phosphor-react';
-import { ITask } from '../TaskList/Index';
 import { MouseEvent, ChangeEvent, Dispatch, SetStateAction, useState, KeyboardEvent } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { ITask } from '../../App';
 
 interface INewTaskProps{
   setTasks: Dispatch<SetStateAction<ITask[]>>
@@ -33,7 +33,6 @@ export function NewTask({ setTasks }: INewTaskProps) {
 
   function handleChangeInput(e: ChangeEvent<HTMLInputElement>): void {
     const taskDescription = e.target.value
-    console.log(taskDescription)
     setNewTaskDescription(taskDescription)
   }
   
@@ -56,7 +55,13 @@ export function NewTask({ setTasks }: INewTaskProps) {
         placeholder="Adicione uma nova tarefa" 
         maxLength={250}
       />
-      <button onClick={handleOnClickChange}>Criar <PlusCircle size={18} weight={'bold'} /></button>
+      <button onClick={handleOnClickChange}>
+        Criar 
+        <PlusCircle 
+          size={18} 
+          weight={'bold'} 
+        />
+      </button>
     </div>
   )
 }

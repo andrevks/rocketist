@@ -1,7 +1,7 @@
 import { Trash } from 'phosphor-react';
 import { Dispatch, MouseEvent, SetStateAction } from 'react';
-import { ITask } from '../TaskList/Index';
 import styles from './Task.module.css';
+import { ITask } from '../../App';
 
 interface ITaskProps {
   id: string

@@ -3,11 +3,7 @@ import { Task } from '../Task/Index';
 import { TaskListInfo } from '../TaskListInfo/Index';
 import { useState, SetStateAction, Dispatch } from 'react';
 import clipboard from '../../assets/clipboard.svg';
-export interface ITask{
-  id: string
-  description: string
-  isDone: boolean
-}
+import { ITask } from '../../App';
 
 export interface ITaskListProps{
   setTasks: Dispatch<SetStateAction<ITask[]>>

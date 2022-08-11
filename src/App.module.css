@@ -5,3 +5,11 @@
   /* background: aliceblue; */
   margin-top: -1.6875rem;
 }
+
+
+@media (max-width: 768px) {
+  html {
+    font-size: 87.5%;
+  }
+
+}

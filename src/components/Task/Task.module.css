@@ -115,7 +115,6 @@
 .trash:hover {
   color: var(--red-200);
   background: var(--gray-400);
-  
   border-radius: 8px;
-  
 }
+
