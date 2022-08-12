@@ -15,7 +15,7 @@
 
 ## ℹ Description
 
-> This application is a **to-do list** made with ReactJS with TypeScript.
+> This application is a **to-do list** made with ReactJS and TypeScript.
 
 The application has the following features:
 
