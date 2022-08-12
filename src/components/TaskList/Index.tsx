@@ -1,7 +1,7 @@
 import styles from './TaskList.module.css';
 import { Task } from '../Task/Index';
 import { TaskListInfo } from '../TaskListInfo/Index';
-import { useState, SetStateAction, Dispatch } from 'react';
+import { SetStateAction, Dispatch } from 'react';
 import clipboard from '../../assets/clipboard.svg';
 import { ITask } from '../../App';
 
